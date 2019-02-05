@@ -1,0 +1,9 @@
+ext {
+  API_DEBUG_KEY = "f7c16c57877448a589e142500190402"
+  API_STAGING_KEY = "f7c16c57877448a589e142500190402"
+  API_RELEASE_KEY = "f7c16c57877448a589e142500190402"
+
+  API_DEBUG_URL = "http://api.worldweatheronline.com"
+  API_STAGING_URL = "http://api.worldweatheronline.com"
+  API_RELEASE_URL = "http://api.worldweatheronline.com"
+}

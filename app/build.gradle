@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: '../keys.gradle'
+
+android {
+  compileSdkVersion 28
+  defaultConfig {
+    applicationId "org.fs.weather"
+    minSdkVersion 21
+    targetSdkVersion 28
+    versionCode 1
+    versionName "1.0"
+
+    vectorDrawables {
+      useSupportLibrary true
+    }
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+  dexOptions {
+    javaMaxHeapSize "4g"
+  }
+
+  buildTypes {
+    debug {
+      applicationIdSuffix ".debug"
+      buildConfigField "String", "BASE_URL", API_DEBUG_URL
+      buildConfigField "String", "API_KEY", API_DEBUG_KEY
+
+      resValue "string", "app_name", "Weather Debug"
+
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    staging {
+      applicationIdSuffix '.staging'
+      buildConfigField "String", "BASE_URL", API_STAGING_URL
+      buildConfigField "String", "API_KEY", API_STAGING_KEY
+
+      resValue "string", "app_name", "Weather Staging"
+
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    release {
+      buildConfigField "String", "BASE_URL", API_RELEASE_URL
+      buildConfigField "String", "API_KEY", API_RELEASE_KEY
+
+      resValue "string", "app_name", "Weather"
+
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+androidExtensions {
+  experimental = true
+}
+
+
+dependencies {
+  implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+  implementation "org.fs.architecture:mvi:$MVI_VERSION"
+
+  implementation "com.android.support.constraint:constraint-layout:$CONSTRAINT_VERSION"
+
+  implementation "com.squareup.okhttp3:logging-interceptor:$HTTP_VERSION"
+
+  kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+  kapt "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
+
+  implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
+  kapt "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+
+  // testImplementation 'junit:junit:4.12'
+  // androidTestImplementation 'com.android.support.test:runner:1.0.2'
+  // androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
