@@ -21,12 +21,23 @@ import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import org.fs.rx.extensions.util.EMPTY
 
 @Entity(tableName = "cities")
 @Parcelize
-class City @Ignore constructor(@field:PrimaryKey var name: String): Parcelable {
+class City @Ignore constructor(
+  @field:PrimaryKey(autoGenerate = true) var cityId: Long? = null,
+  var areaName: List<ValueObject>? = null,
+  var country: List<ValueObject>? = null,
+  var region: List<ValueObject>? = null,
+  var lattitude: String? = null,
+  var longitude: String? = null,
+  var population: String? = null,
+  var weatherUrl: List<ValueObject>? = null): Parcelable {
 
   // will be used by Room to initialize new instance of this object
-  constructor(): this(String.EMPTY)
+  constructor(): this(null, null, null, null, null, null, null, null)
+
+  companion object {
+    val EMPTY = City()
+  }
 }

@@ -31,7 +31,7 @@ class Forecast @Ignore constructor(
   @field:SerializedName("current_condition") var currentCondition: List<CurrentCondition>? = null,
   var weather: List<DailyForecast>? = null,
   var climateAverages: List<ClimateAverage>? = null,
-  var cityName: String? = null): Parcelable {
+  var cityId: Long? = null): Parcelable {
 
   // default constructor
   constructor(): this(null, null, null, null, null, null)

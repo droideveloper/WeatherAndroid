@@ -2,31 +2,73 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d60307052c14e870772ee5d441e21162",
+    "identityHash": "05d391b77fdeff0cc28d982b1a0d24f8",
     "entities": [
       {
         "tableName": "cities",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, PRIMARY KEY(`name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cityId` INTEGER PRIMARY KEY AUTOINCREMENT, `areaName` TEXT, `country` TEXT, `region` TEXT, `lattitude` TEXT, `longitude` TEXT, `population` TEXT, `weatherUrl` TEXT)",
         "fields": [
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "cityId",
+            "columnName": "cityId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "areaName",
+            "columnName": "areaName",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "region",
+            "columnName": "region",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lattitude",
+            "columnName": "lattitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "population",
+            "columnName": "population",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "weatherUrl",
+            "columnName": "weatherUrl",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "name"
+            "cityId"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "forecasts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`forecastId` INTEGER PRIMARY KEY AUTOINCREMENT, `request` TEXT, `currentCondition` TEXT, `weather` TEXT, `climateAverages` TEXT, `cityName` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`forecastId` INTEGER PRIMARY KEY AUTOINCREMENT, `request` TEXT, `currentCondition` TEXT, `weather` TEXT, `climateAverages` TEXT, `cityId` INTEGER)",
         "fields": [
           {
             "fieldPath": "forecastId",
@@ -59,9 +101,9 @@
             "notNull": false
           },
           {
-            "fieldPath": "cityName",
-            "columnName": "cityName",
-            "affinity": "TEXT",
+            "fieldPath": "cityId",
+            "columnName": "cityId",
+            "affinity": "INTEGER",
             "notNull": false
           }
         ],
@@ -77,7 +119,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"d60307052c14e870772ee5d441e21162\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"05d391b77fdeff0cc28d982b1a0d24f8\")"
     ]
   }
 }

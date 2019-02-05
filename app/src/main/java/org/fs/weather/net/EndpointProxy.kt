@@ -17,6 +17,7 @@
 package org.fs.weather.net
 
 import io.reactivex.Observable
+import org.fs.weather.model.entity.City
 import org.fs.weather.model.entity.Forecast
 import org.fs.weather.model.net.Resource
 import org.fs.weather.util.C.Companion.DEFAULT_NUM_OF_DAYS
@@ -24,4 +25,6 @@ import org.fs.weather.util.C.Companion.DEFAULT_NUM_OF_DAYS
 interface EndpointProxy {
 
   fun weatherFor(q: String, days: Int = DEFAULT_NUM_OF_DAYS): Observable<Resource<Forecast>>
+
+  fun cityFor(q: String): Observable<Resource<List<City>>>
 }

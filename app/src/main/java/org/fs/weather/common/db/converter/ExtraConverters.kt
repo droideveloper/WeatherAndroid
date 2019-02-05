@@ -20,10 +20,7 @@ import android.arch.persistence.room.TypeConverter
 import android.text.TextUtils
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import org.fs.weather.model.entity.ClimateAverage
-import org.fs.weather.model.entity.CurrentCondition
-import org.fs.weather.model.entity.DailyForecast
-import org.fs.weather.model.entity.Request
+import org.fs.weather.model.entity.*
 
 sealed class ExtraConverters {
 
@@ -43,6 +40,9 @@ sealed class ExtraConverters {
     // climateAverage
     @JvmStatic private val typeTokenClimateAverage = object: TypeToken<List<ClimateAverage>>() {}
     @JvmStatic private val typeAdapterClimateAverage = serializer.getAdapter(typeTokenClimateAverage)
+    // valueObject
+    @JvmStatic private val typeTokenValueObject = object: TypeToken<List<ValueObject>>() {}
+    @JvmStatic private val typeAdapterValueObject = serializer.getAdapter(typeTokenValueObject)
 
     @JvmStatic @TypeConverter fun convertRequestListToString(requests: List<Request>?): String? {
       if (requests != null && requests.isNotEmpty()) {
@@ -96,6 +96,20 @@ sealed class ExtraConverters {
     @JvmStatic @TypeConverter fun convertStringToClimateAverageList(value: String?): List<ClimateAverage>? {
       if (!TextUtils.isEmpty(value)) {
         return typeAdapterClimateAverage.fromJson(value)
+      }
+      return null
+    }
+
+    @JvmStatic @TypeConverter fun convertValueObjectListToString(valueObjects: List<ValueObject>?): String? {
+      if (valueObjects != null && valueObjects.isNotEmpty()) {
+        return typeAdapterValueObject.toJson(valueObjects)
+      }
+      return null
+    }
+
+    @JvmStatic @TypeConverter fun convertStringToValueObjectList(value: String?): List<ValueObject>? {
+      if (!TextUtils.isEmpty(value)) {
+        return typeAdapterValueObject.fromJson(value)
       }
       return null
     }
