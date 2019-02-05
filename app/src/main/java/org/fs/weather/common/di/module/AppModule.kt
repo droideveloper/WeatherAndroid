@@ -16,10 +16,25 @@
 
 package org.fs.weather.common.di.module
 
+import android.app.Application
+import android.content.Context
+import dagger.Binds
 import dagger.Module
+import okhttp3.Interceptor
+import org.fs.weather.App
+import org.fs.weather.common.net.AuthInterceptor
+import org.fs.weather.net.EndpointImp
+import org.fs.weather.net.EndpointProxy
 import javax.inject.Singleton
 
 @Module
 abstract class AppModule {
-  // TODO place context in here for di
+
+  @Singleton @Binds abstract fun bindApplication(app: App): Application
+
+  @Singleton @Binds abstract fun bindContext(app: Application): Context
+
+  @Singleton @Binds abstract fun bindAuthInterceptor(interceptor: AuthInterceptor): Interceptor
+
+  @Singleton @Binds abstract fun bindEndpointProxy(proxy: EndpointImp): EndpointProxy
 }

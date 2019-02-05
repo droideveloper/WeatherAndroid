@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util
+package org.fs.weather.model.entity
 
-sealed class C {
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import org.fs.rx.extensions.util.EMPTY
 
-  companion object {
-    // used for request
-    const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
-    const val QUERY_FORMAT = "format"
-    const val QUERY_NUMBER_OF_DAYS = "num_of_days"
-    // path that we use for request
-    const val WEATHER_REQUEST_PATH = "/premium/v1/weather.ashx"
+@Entity(tableName = "cities")
+@Parcelize
+class City @Ignore constructor(@field:PrimaryKey var name: String): Parcelable {
 
-    const val DEFAULT_NUM_OF_DAYS = 5
-    const val DEFAULT_FORMAT = "json"
-  }
+  // will be used by Room to initialize new instance of this object
+  constructor(): this(String.EMPTY)
 }
