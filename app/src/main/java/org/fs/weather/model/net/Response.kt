@@ -14,20 +14,6 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util
+package org.fs.weather.model.net
 
-sealed class C {
-
-  companion object {
-    // used for request
-    const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
-    const val QUERY_FORMAT = "format"
-    const val QUERY_NUMBER_OF_DAYS = "num_of_days"
-    // path that we use for request
-    const val WEATHER_REQUEST_PATH = "/premium/v1/weather.ashx"
-
-    const val DEFAULT_NUM_OF_DAYS = 5
-    const val DEFAULT_FORMAT = "json"
-  }
-}
+data class Response<T>(val data: T? = null)

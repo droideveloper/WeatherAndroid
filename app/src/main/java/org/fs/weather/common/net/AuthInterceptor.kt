@@ -19,6 +19,8 @@ package org.fs.weather.common.net
 import okhttp3.Interceptor
 import okhttp3.Response
 import org.fs.weather.BuildConfig
+import org.fs.weather.util.C.Companion.DEFAULT_FORMAT
+import org.fs.weather.util.C.Companion.QUERY_FORMAT
 import org.fs.weather.util.C.Companion.QUERY_KEY
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -34,6 +36,8 @@ class AuthInterceptor @Inject constructor(): Interceptor {
     val newUrl = request.url()
       .newBuilder()
       .addQueryParameter(QUERY_KEY, BuildConfig.API_KEY)
+      .addQueryParameter(QUERY_FORMAT, DEFAULT_FORMAT)
+        // TODO might want to add user locale information
       .build()
 
     // create new request url that we intercepted will change

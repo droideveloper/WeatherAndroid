@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util
+package org.fs.weather.net
 
-sealed class C {
+import io.reactivex.Observable
+import org.fs.weather.model.entity.Forecast
+import org.fs.weather.model.net.Response
+import org.fs.weather.util.C.Companion.QUERY_NUMBER_OF_DAYS
+import org.fs.weather.util.C.Companion.QUERY_SERACH
+import org.fs.weather.util.C.Companion.WEATHER_REQUEST_PATH
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-  companion object {
-    // used for request
-    const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
-    const val QUERY_FORMAT = "format"
-    const val QUERY_NUMBER_OF_DAYS = "num_of_days"
-    // path that we use for request
-    const val WEATHER_REQUEST_PATH = "/premium/v1/weather.ashx"
+interface Endpoint {
 
-    const val DEFAULT_NUM_OF_DAYS = 5
-    const val DEFAULT_FORMAT = "json"
-  }
+  @GET(WEATHER_REQUEST_PATH) fun weatherFor(@Query(QUERY_SERACH) q: String, @Query(QUERY_NUMBER_OF_DAYS) days: Int): Observable<Response<Forecast>>
 }

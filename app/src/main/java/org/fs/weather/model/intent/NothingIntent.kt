@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util
+package org.fs.weather.model.intent
 
-sealed class C {
+import org.fs.architecture.mvi.common.ReducerIntent
 
-  companion object {
-    // used for request
-    const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
-    const val QUERY_FORMAT = "format"
-    const val QUERY_NUMBER_OF_DAYS = "num_of_days"
-    // path that we use for request
-    const val WEATHER_REQUEST_PATH = "/premium/v1/weather.ashx"
+class NothingIntent<T>: ReducerIntent<T>() {
 
-    const val DEFAULT_NUM_OF_DAYS = 5
-    const val DEFAULT_FORMAT = "json"
-  }
+  // this reducer intent does nothing at all just returns it as its model state untouched.
+  override fun invoke(o: T): T = o
 }

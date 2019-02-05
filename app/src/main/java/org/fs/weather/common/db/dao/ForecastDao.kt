@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util
+package org.fs.weather.common.db.dao
 
-sealed class C {
+import android.arch.persistence.room.*
+import io.reactivex.Single
+import org.fs.weather.model.entity.Forecast
 
-  companion object {
-    // used for request
-    const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
-    const val QUERY_FORMAT = "format"
-    const val QUERY_NUMBER_OF_DAYS = "num_of_days"
-    // path that we use for request
-    const val WEATHER_REQUEST_PATH = "/premium/v1/weather.ashx"
+@Dao interface ForecastDao {
 
-    const val DEFAULT_NUM_OF_DAYS = 5
-    const val DEFAULT_FORMAT = "json"
-  }
+  @Query("SELECT * FROM forecasts WHERE cityName = :cityName") fun forecastByCityName(cityName: String): Single<List<Forecast>>
+  @Query("SELECT * FROM forecasts") fun forecasts(): Single<List<Forecast>>
+  @Insert(onConflict = OnConflictStrategy.REPLACE) fun create(forecast: Forecast)
+  @Update(onConflict = OnConflictStrategy.REPLACE) fun update(forecast: Forecast)
+  @Delete fun delete(forecast: Forecast)
 }

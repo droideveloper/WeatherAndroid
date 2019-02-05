@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util
+package org.fs.weather.model.entity
 
-sealed class C {
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
+data class MonthlyAverage(
+  val index: String? = null,
+  val name: String? = null,
+  @field:SerializedName("avgMinTemp") val avgMinTempC: String? = null,
+  @field:SerializedName("avgMinTemp_F") val avgMinTempF: String? = null,
+  @field:SerializedName("absMaxTemp") val absMaxTempC: String? = null,
+  @field:SerializedName("absMaxTemp_F") val absMaxTempF: String? = null,
+  val avgDailyRainfall: String? = null): Parcelable {
   companion object {
-    // used for request
-    const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
-    const val QUERY_FORMAT = "format"
-    const val QUERY_NUMBER_OF_DAYS = "num_of_days"
-    // path that we use for request
-    const val WEATHER_REQUEST_PATH = "/premium/v1/weather.ashx"
-
-    const val DEFAULT_NUM_OF_DAYS = 5
-    const val DEFAULT_FORMAT = "json"
+    val EMPTY = MonthlyAverage()
   }
 }
