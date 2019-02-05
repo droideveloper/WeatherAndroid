@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-package org.fs.weather.common.db.dao
+package org.fs.weather.model.net
 
-import android.arch.persistence.room.*
-import io.reactivex.Single
-import org.fs.weather.model.entity.Forecast
-
-@Dao interface ForecastDao {
-
-  @Query("SELECT * FROM forecasts WHERE cityId = :cityId") fun forecastByCityId(cityId: Long): Single<List<Forecast>>
-  @Query("SELECT * FROM forecasts") fun forecasts(): Single<List<Forecast>>
-  @Insert(onConflict = OnConflictStrategy.REPLACE) fun create(forecast: Forecast)
-  @Update(onConflict = OnConflictStrategy.REPLACE) fun update(forecast: Forecast)
-  @Delete fun delete(forecast: Forecast)
-}
+data class SearchResponse<T>(val result: T? = null)

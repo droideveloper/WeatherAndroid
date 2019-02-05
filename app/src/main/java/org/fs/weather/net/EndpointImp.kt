@@ -17,9 +17,11 @@
 package org.fs.weather.net
 
 import io.reactivex.Observable
+import org.fs.weather.model.entity.City
 import org.fs.weather.model.entity.Forecast
 import org.fs.weather.model.net.Resource
 import org.fs.weather.model.net.Response
+import org.fs.weather.model.net.SearchResponse
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,10 +31,19 @@ class EndpointImp @Inject constructor(private val internal: Endpoint): EndpointP
 
   override fun weatherFor(q: String, days: Int): Observable<Resource<Forecast>> = internal.weatherFor(q, days).applyResource()
 
+  override fun cityFor(q: String): Observable<Resource<List<City>>> = internal.cityFor(q).applySearchResource()
+
   private fun <T> Observable<Response<T>>.applyResource(): Observable<Resource<T>> = map { response ->
     if (response.data != null) {
       return@map Resource.Success(data = response.data)
     }
     return@map Resource.Failure<T>(error = IOException("error serializing data"))
+  }
+
+  private fun Observable<Response<SearchResponse<List<City>>>>.applySearchResource(): Observable<Resource<List<City>>> = map { response ->
+    if (response.data != null) {
+      return@map Resource.Success(data = response.data.result)
+    }
+    return@map Resource.Failure<List<City>>(error = IOException("error serializing data"))
   }
 }

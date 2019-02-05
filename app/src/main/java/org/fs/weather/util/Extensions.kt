@@ -16,25 +16,26 @@
 
 package org.fs.weather.util
 
-sealed class C {
+import android.util.Log
+import org.fs.weather.BuildConfig
+import java.io.PrintWriter
+import java.io.StringWriter
 
-  companion object {
-    // used for request in
-    const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
-    const val QUERY_FORMAT = "format"
-    // forecast api param
-    const val QUERY_NUMBER_OF_DAYS = "num_of_days"
+// log extensions
+inline fun <reified T> T.log(message: String) = log(Log.DEBUG, message)
 
-    // path that we use for request
-    const val WEATHER_REQUEST_PATH = "/premium/v1/weather.ashx"
-    const val SEARCH_REQUEST_PATH = "/premium/v1/search.ashx"
-
-    // default values for api
-    const val DEFAULT_NUM_OF_DAYS = 5
-    const val DEFAULT_FORMAT = "json"
-
-    // operation niches
-    const val REFRESH = 0x01
+inline fun <reified T> T.log(level: Int, message: String) {
+  if (isLogEnabled()) {
+    Log.println(level, getClassTag(), message)
   }
 }
+
+inline fun <reified T> T.log(error: Throwable) {
+  val sw = StringWriter()
+  val pw = PrintWriter(sw)
+  error.printStackTrace(pw)
+  log(Log.ERROR, sw.toString())
+}
+
+inline fun <reified T> T.isLogEnabled(): Boolean = BuildConfig.DEBUG
+inline fun <reified T> T.getClassTag(): String = T::class.java.simpleName

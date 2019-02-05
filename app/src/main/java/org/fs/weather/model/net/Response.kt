@@ -16,4 +16,6 @@
 
 package org.fs.weather.model.net
 
-data class Response<T>(val data: T? = null)
+import com.google.gson.annotations.SerializedName
+
+data class Response<T>(@field:SerializedName("data", alternate = ["search_api"]) val data: T? = null)

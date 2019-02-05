@@ -20,8 +20,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class WeatherDesc(val value: String? = null): Parcelable {
+data class ValueObject(val value: String? = null): Parcelable {
   companion object {
-    val EMPTY = WeatherDesc()
+    val EMPTY = ValueObject()
   }
 }

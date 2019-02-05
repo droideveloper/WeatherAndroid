@@ -16,15 +16,5 @@
 
 package org.fs.weather.common.repo
 
-import io.reactivex.Completable
-import io.reactivex.Observable
-import org.fs.weather.model.entity.City
-import org.fs.weather.model.net.Resource
-
-interface CityRepository {
-
-  fun loadCities(): Observable<Resource<List<City>>>
-  fun create(city: City): Completable
-  fun update(city: City): Completable
-  fun delete(city: City): Completable
+interface RemoteCityRepository {
 }

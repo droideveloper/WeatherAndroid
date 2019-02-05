@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.fs.weather.model
 
-package org.fs.weather.model.entity
+import org.fs.architecture.mvi.common.Model
+import org.fs.architecture.mvi.common.SyncState
+import org.fs.weather.model.entity.City
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
-data class WeatherIconUrl(val value: String? = null): Parcelable {
-  companion object {
-    val EMPTY = WeatherIconUrl()
-  }
-}
+data class CityModel(override val state: SyncState, override val data: List<City>) : Model<List<City>>(state, data)

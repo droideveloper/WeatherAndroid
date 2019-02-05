@@ -17,10 +17,13 @@
 package org.fs.weather.net
 
 import io.reactivex.Observable
+import org.fs.weather.model.entity.City
 import org.fs.weather.model.entity.Forecast
 import org.fs.weather.model.net.Response
+import org.fs.weather.model.net.SearchResponse
 import org.fs.weather.util.C.Companion.QUERY_NUMBER_OF_DAYS
 import org.fs.weather.util.C.Companion.QUERY_SERACH
+import org.fs.weather.util.C.Companion.SEARCH_REQUEST_PATH
 import org.fs.weather.util.C.Companion.WEATHER_REQUEST_PATH
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -28,4 +31,6 @@ import retrofit2.http.Query
 interface Endpoint {
 
   @GET(WEATHER_REQUEST_PATH) fun weatherFor(@Query(QUERY_SERACH) q: String, @Query(QUERY_NUMBER_OF_DAYS) days: Int): Observable<Response<Forecast>>
+
+  @GET(SEARCH_REQUEST_PATH) fun cityFor(@Query(QUERY_SERACH) q: String): Observable<Response<SearchResponse<List<City>>>>
 }
