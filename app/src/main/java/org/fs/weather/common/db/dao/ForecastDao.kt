@@ -23,7 +23,6 @@ import org.fs.weather.model.entity.Forecast
 @Dao interface ForecastDao {
 
   @Query("SELECT * FROM forecasts WHERE cityId = :cityId") fun forecastByCityId(cityId: Long): Single<List<Forecast>>
-  @Query("SELECT * FROM forecasts") fun forecasts(): Single<List<Forecast>>
   @Insert(onConflict = OnConflictStrategy.REPLACE) fun create(forecast: Forecast)
   @Update(onConflict = OnConflictStrategy.REPLACE) fun update(forecast: Forecast)
   @Delete fun delete(forecast: Forecast)

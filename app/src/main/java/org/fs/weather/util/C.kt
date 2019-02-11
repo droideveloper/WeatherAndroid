@@ -19,6 +19,8 @@ package org.fs.weather.util
 sealed class C {
 
   companion object {
+    const val DB_NAME = "storage.db"
+
     // used for request in
     const val QUERY_KEY = "key"
     const val QUERY_SERACH = "q"

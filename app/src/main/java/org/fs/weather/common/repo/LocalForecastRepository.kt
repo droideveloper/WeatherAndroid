@@ -23,7 +23,6 @@ import org.fs.weather.model.net.Resource
 
 interface LocalForecastRepository {
 
-  fun loadForecasts(): Observable<Resource<List<Forecast>>>
   fun loadForecastForCityId(cityId: Long): Observable<Resource<Forecast>>
   fun create(forecast: Forecast): Completable
   fun update(forecast: Forecast): Completable

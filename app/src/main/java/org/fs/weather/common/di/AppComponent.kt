@@ -22,10 +22,11 @@ import dagger.android.support.AndroidSupportInjectionModule
 import org.fs.weather.App
 import org.fs.weather.common.di.module.AppModule
 import org.fs.weather.common.di.module.NetworkModule
+import org.fs.weather.common.di.module.StorageModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, NetworkModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, NetworkModule::class, StorageModule::class])
 interface AppComponent: AndroidInjector<App> {
 
   @Component.Builder

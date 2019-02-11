@@ -23,7 +23,7 @@ import org.fs.weather.model.net.Resource
 
 interface LocalCityRepository {
 
-  fun loadCities(): Observable<Resource<List<City>>>
+  fun loadCities(q: String): Observable<Resource<List<City>>>
   fun create(city: City): Completable
   fun update(city: City): Completable
   fun delete(city: City): Completable
