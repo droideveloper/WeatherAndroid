@@ -1,5 +1,5 @@
 /*
- * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
+ * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package org.fs.weather.common.db.dao
+package org.fs.weather.common.glide
 
-import android.arch.persistence.room.*
-import io.reactivex.Single
-import org.fs.weather.model.entity.City
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 
-@Dao interface CityDao {
-
-  @Query("SELECT * FROM cities") fun loadCities(): Single<List<City>>
-  @Update(onConflict = OnConflictStrategy.REPLACE) fun update(city: City)
-  @Insert(onConflict = OnConflictStrategy.REPLACE) fun create(city: City)
-  @Delete fun delete(city: City)
-  @Query("DELETE FROM forecasts") fun deleteAll()
+@GlideModule
+class WeatherGlideModule: AppGlideModule() {
+  /*TODO implement this*/
 }

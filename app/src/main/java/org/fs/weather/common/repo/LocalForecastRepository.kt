@@ -27,4 +27,5 @@ interface LocalForecastRepository {
   fun create(forecast: Forecast): Completable
   fun update(forecast: Forecast): Completable
   fun delete(forecast: Forecast): Completable
+  fun deleteAll(): Completable
 }

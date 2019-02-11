@@ -1,5 +1,5 @@
 /*
- * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
+ * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package org.fs.weather.common.db.dao
+package org.fs.weather.common.repo
 
-import android.arch.persistence.room.*
-import io.reactivex.Single
-import org.fs.weather.model.entity.City
+import android.content.Context
+import javax.inject.Inject
+import javax.inject.Singleton
 
-@Dao interface CityDao {
+@Singleton
+class PreferenceRepositoryImp @Inject constructor(context: Context): PreferenceRepository {
 
-  @Query("SELECT * FROM cities") fun loadCities(): Single<List<City>>
-  @Update(onConflict = OnConflictStrategy.REPLACE) fun update(city: City)
-  @Insert(onConflict = OnConflictStrategy.REPLACE) fun create(city: City)
-  @Delete fun delete(city: City)
-  @Query("DELETE FROM forecasts") fun deleteAll()
+  companion object {
+    private const val APP_PREFERENCES = "app.preferences"
+  }
+
+  private val preferences by lazy { context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE) }
 }
