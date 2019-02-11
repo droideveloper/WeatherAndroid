@@ -1,5 +1,5 @@
 /*
- * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
+ * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,18 @@
 
 package org.fs.weather.common.repo
 
-import io.reactivex.Completable
-import io.reactivex.Observable
-import org.fs.weather.model.entity.City
-import org.fs.weather.model.net.Resource
+import android.content.Context
+import android.net.ConnectivityManager
+import javax.inject.Inject
+import javax.inject.Singleton
 
-interface LocalCityRepository {
+@Singleton
+class ConnectivityRepositoryImp @Inject constructor(context: Context): ConnectivityRepository {
 
-  fun loadCities(q: String): Observable<Resource<List<City>>>
-  fun create(city: City): Completable
-  fun update(city: City): Completable
-  fun delete(city: City): Completable
-  fun deleteAll(): Completable
+  private val connectivityManager by lazy { context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
+
+  override fun isConnected(): Boolean {
+    val activeNetwork = connectivityManager.activeNetworkInfo
+    return activeNetwork != null && activeNetwork.isConnected
+  }
 }

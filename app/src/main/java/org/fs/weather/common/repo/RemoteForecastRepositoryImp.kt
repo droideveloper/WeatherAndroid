@@ -1,5 +1,5 @@
 /*
- * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
+ * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.fs.weather.common.db.dao
+package org.fs.weather.common.repo
 
-import android.arch.persistence.room.*
-import io.reactivex.Single
-import org.fs.weather.model.entity.City
+import io.reactivex.Observable
+import org.fs.weather.model.entity.Forecast
+import org.fs.weather.model.net.Resource
+import org.fs.weather.net.EndpointProxy
+import javax.inject.Inject
+import javax.inject.Singleton
 
-@Dao interface CityDao {
+@Singleton
+class RemoteForecastRepositoryImp @Inject constructor(private val proxy: EndpointProxy): RemoteForecastRepository {
 
-  @Query("SELECT * FROM cities") fun loadCities(): Single<List<City>>
-  @Update(onConflict = OnConflictStrategy.REPLACE) fun update(city: City)
-  @Insert(onConflict = OnConflictStrategy.REPLACE) fun create(city: City)
-  @Delete fun delete(city: City)
-  @Query("DELETE FROM forecasts") fun deleteAll()
+  override fun loadForecastFor(q: String): Observable<Resource<Forecast>> = proxy.weatherFor(q)
 }

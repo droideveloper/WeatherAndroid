@@ -23,6 +23,7 @@ import dagger.Module
 import okhttp3.Interceptor
 import org.fs.weather.App
 import org.fs.weather.common.net.AuthInterceptor
+import org.fs.weather.common.repo.*
 import org.fs.weather.net.EndpointImp
 import org.fs.weather.net.EndpointProxy
 import javax.inject.Singleton
@@ -37,4 +38,16 @@ abstract class AppModule {
   @Singleton @Binds abstract fun bindAuthInterceptor(interceptor: AuthInterceptor): Interceptor
 
   @Singleton @Binds abstract fun bindEndpointProxy(proxy: EndpointImp): EndpointProxy
+
+  @Singleton @Binds abstract fun bindLocalCityRepository(repo: LocalCityRepositoryImp): LocalCityRepository
+
+  @Singleton @Binds abstract fun bindRemoteCityRepository(repo: RemoteCityRepositoryImp): RemoteCityRepository
+
+  @Singleton @Binds abstract fun bindLocalForecastRepository(repo: LocalForecastRepositoryImp): LocalForecastRepository
+
+  @Singleton @Binds abstract fun bindRemoteForecastRepository(repo: RemoteForecastRepositoryImp): RemoteForecastRepository
+
+  @Singleton @Binds abstract fun bindConnectivityRepository(repo: ConnectivityRepositoryImp): ConnectivityRepository
+
+  @Singleton @Binds abstract fun bindPreferenceRepository(repo: PreferenceRepositoryImp): PreferenceRepository
 }

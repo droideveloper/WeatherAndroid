@@ -1,5 +1,5 @@
 /*
- * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
+ * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.fs.weather.view
 
-package org.fs.weather.common.db.dao
+import org.fs.architecture.mvi.common.View
+import org.fs.weather.model.CityModel
 
-import android.arch.persistence.room.*
-import io.reactivex.Single
-import org.fs.weather.model.entity.City
-
-@Dao interface CityDao {
-
-  @Query("SELECT * FROM cities") fun loadCities(): Single<List<City>>
-  @Update(onConflict = OnConflictStrategy.REPLACE) fun update(city: City)
-  @Insert(onConflict = OnConflictStrategy.REPLACE) fun create(city: City)
-  @Delete fun delete(city: City)
-  @Query("DELETE FROM forecasts") fun deleteAll()
+interface CityFragmentView : View {
+  fun render(model: CityModel)
 }

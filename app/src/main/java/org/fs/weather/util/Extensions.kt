@@ -17,7 +17,9 @@
 package org.fs.weather.util
 
 import android.util.Log
+import org.fs.architecture.mvi.util.EMPTY
 import org.fs.weather.BuildConfig
+import org.fs.weather.model.entity.City
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -39,3 +41,8 @@ inline fun <reified T> T.log(error: Throwable) {
 
 inline fun <reified T> T.isLogEnabled(): Boolean = BuildConfig.DEBUG
 inline fun <reified T> T.getClassTag(): String = T::class.java.simpleName
+
+fun City.hasAreaName(q: String): Boolean {
+  val areaName = areaName?.firstOrNull()?.value ?: String.EMPTY
+  return areaName.contains(q)
+}
