@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util 
+package org.fs.weather.widget
 
-sealed class Operations {
-  companion object {
+import android.content.Context
+import android.support.v4.view.ViewPager
+import android.util.AttributeSet
+import org.fs.weather.R
 
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
+class DeckViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null): ViewPager(context, attrs) {
+
+  private val defaultMargin by lazy { resources.getDimensionPixelSize(R.dimen.default_margin) }
+  private val pagePadding by lazy { resources.getDimensionPixelSize(R.dimen.page_padding) }
+
+  init {
+    setPadding(pagePadding, 0, pagePadding, 0)
+    pageMargin = defaultMargin
+    clipToPadding = false
   }
 }

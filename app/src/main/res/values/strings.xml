@@ -17,4 +17,5 @@
  */
  -->
 <resources>
+  <string name="str_city_name_hint">Enter city name for search</string>
 </resources>

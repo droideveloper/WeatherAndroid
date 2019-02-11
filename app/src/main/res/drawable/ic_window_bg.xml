@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 /*
  * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,14 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.fs.weather.util 
-
-sealed class Operations {
-  companion object {
-
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
-}
+ -->
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:gravity="fill_vertical|fill_horizontal">
+    <shape android:shape="rectangle">
+      <solid android:color="@color/colorPrimaryDark" />
+    </shape>
+  </item>
+  <item android:gravity="center"
+    android:drawable="@drawable/ic_launcher_foreground" />
+</layer-list>

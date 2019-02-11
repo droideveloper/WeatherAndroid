@@ -16,6 +16,6 @@
  * limitations under the License.
  */
  -->
-<network-security-cofig
-  xmlns:android="http://schemas.android.com/apk/res/android">
+<network-security-cofig>
+  <base-config cleartextTrafficPermitted="true" />
 </network-security-cofig>

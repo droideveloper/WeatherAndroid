@@ -1,3 +1,7 @@
+package org.fs.weather.model.event
+
+import org.fs.architecture.mvi.common.Event
+
 /*
  * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
@@ -13,14 +17,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.fs.weather.util 
-
-sealed class Operations {
-  companion object {
-
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
-}
+object LoadCityEvent: Event

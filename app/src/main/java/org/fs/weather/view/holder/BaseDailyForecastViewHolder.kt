@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.fs.weather.view.holder
 
-package org.fs.weather.util 
+import android.view.View
+import org.fs.architecture.mvi.core.AbstractRecyclerViewHolder
+import org.fs.weather.model.entity.DailyForecast
 
-sealed class Operations {
-  companion object {
-
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
-}
+abstract class BaseDailyForecastViewHolder(view: View) : AbstractRecyclerViewHolder<DailyForecast>(view)

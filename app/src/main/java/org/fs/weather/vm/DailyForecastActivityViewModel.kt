@@ -16,22 +16,26 @@
 package org.fs.weather.vm
 
 import org.fs.architecture.mvi.common.Event
-import org.fs.architecture.mvi.common.ForFragment
+import org.fs.architecture.mvi.common.ForActivity
+import org.fs.architecture.mvi.common.Idle
 import org.fs.architecture.mvi.common.Intent
 import org.fs.architecture.mvi.core.AbstractViewModel
-import org.fs.weather.model.ForecastModel
+import org.fs.weather.model.DailyForecastModel
+import org.fs.weather.model.entity.DailyForecast
+import org.fs.weather.model.event.LoadDailyForecastEvent
+import org.fs.weather.model.intent.LoadDailyForecastIntent
 import org.fs.weather.model.intent.NothingIntent
-import org.fs.weather.view.ForecastFragmentView
+import org.fs.weather.view.DailyForecastActivityView
 import javax.inject.Inject
 
-@ForFragment
-class ForecastFragmentViewModel @Inject constructor(view: ForecastFragmentView) :
-  AbstractViewModel<ForecastModel, ForecastFragmentView>(view) {
+@ForActivity
+class DailyForecastActivityViewModel @Inject constructor(view: DailyForecastActivityView) :
+  AbstractViewModel<DailyForecastModel, DailyForecastActivityView>(view) {
 
-  override fun initState(): ForecastModel = throw NotImplementedError("not implemented")
+  override fun initState(): DailyForecastModel = DailyForecastModel(state = Idle, data = DailyForecast.EMPTY)
 
   override fun toIntent(event: Event): Intent = when (event) {
-    else -> NothingIntent<ForecastModel>() // if we can not resolve event to intent
+    is LoadDailyForecastEvent -> LoadDailyForecastIntent(event.dailyForecast)
+    else -> NothingIntent<DailyForecastModel>() // if we can not resolve event to intent
   }
-
 } 

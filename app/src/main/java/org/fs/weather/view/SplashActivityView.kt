@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.fs.weather.view
 
-package org.fs.weather.util 
+import org.fs.architecture.mvi.common.View
+import org.fs.weather.model.SplashModel
 
-sealed class Operations {
-  companion object {
-
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
+interface SplashActivityView : View {
+  fun render(model: SplashModel)
 }

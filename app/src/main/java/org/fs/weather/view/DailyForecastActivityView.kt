@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util 
+package org.fs.weather.view
 
-sealed class Operations {
-  companion object {
+import org.fs.architecture.mvi.common.View
+import org.fs.weather.model.DailyForecastModel
 
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
+
+interface DailyForecastActivityView: View {
+  fun render(model: DailyForecastModel)
 }

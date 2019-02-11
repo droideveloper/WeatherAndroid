@@ -16,7 +16,9 @@
 
 package org.fs.weather.util
 
+import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
+import org.fs.architecture.mvi.common.View
 import org.fs.architecture.mvi.util.EMPTY
 import org.fs.weather.BuildConfig
 import org.fs.weather.model.entity.City
@@ -45,4 +47,14 @@ inline fun <reified T> T.getClassTag(): String = T::class.java.simpleName
 fun City.hasAreaName(q: String): Boolean {
   val areaName = areaName?.firstOrNull()?.value ?: String.EMPTY
   return areaName.contains(q)
+}
+
+fun View.showError(error: Throwable) {
+
+}
+
+fun SwipeRefreshLayout.bind(enable: Boolean) {
+  if (isRefreshing != enable) {
+    isRefreshing = enable
+  }
 }

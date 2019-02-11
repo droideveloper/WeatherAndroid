@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.weather.view
+package org.fs.weather.model
 
-import org.fs.architecture.mvi.common.View
-import org.fs.weather.model.ForecastModel
+import org.fs.architecture.mvi.common.Model
+import org.fs.architecture.mvi.common.SyncState
+import org.fs.weather.model.entity.City
 
-interface ForecastFragmentView : View {
-  fun render(model: ForecastModel)
-}
+data class SplashModel(override val state: SyncState, override val data: City): Model<City>(state, data)

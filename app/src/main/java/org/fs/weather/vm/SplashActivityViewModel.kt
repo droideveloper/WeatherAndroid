@@ -16,31 +16,31 @@
 package org.fs.weather.vm
 
 import org.fs.architecture.mvi.common.Event
-import org.fs.architecture.mvi.common.ForFragment
-import org.fs.architecture.mvi.common.Idle
+import org.fs.architecture.mvi.common.ForActivity
 import org.fs.architecture.mvi.common.Intent
 import org.fs.architecture.mvi.core.AbstractViewModel
-import org.fs.weather.common.repo.ConnectivityRepository
 import org.fs.weather.common.repo.LocalCityRepository
-import org.fs.weather.common.repo.RemoteCityRepository
-import org.fs.weather.model.CityModel
-import org.fs.weather.model.event.SearchCityEvent
+import org.fs.weather.common.repo.PreferenceRepository
+import org.fs.weather.model.SplashModel
+import org.fs.weather.model.event.LoadCityEvent
+import org.fs.weather.model.event.PickCityEvent
+import org.fs.weather.model.intent.LoadCityIntent
 import org.fs.weather.model.intent.NothingIntent
-import org.fs.weather.model.intent.SearchCityIntent
-import org.fs.weather.view.CityFragmentView
+import org.fs.weather.model.intent.PickCityIntent
+import org.fs.weather.view.SplashActivityView
 import javax.inject.Inject
 
-@ForFragment
-class CityFragmentViewModel @Inject constructor(
-  private val remoteCityRepository: RemoteCityRepository,
+@ForActivity
+class SplashActivityViewModel @Inject constructor(
+  private val preferenceRepository: PreferenceRepository,
   private val localCityRepository: LocalCityRepository,
-  private val connectivityRepository: ConnectivityRepository,
-  view: CityFragmentView) : AbstractViewModel<CityModel, CityFragmentView>(view) {
+  view: SplashActivityView) : AbstractViewModel<SplashModel, SplashActivityView>(view) {
 
-  override fun initState(): CityModel = CityModel(state = Idle, data = emptyList())
+  override fun initState(): SplashModel = throw NotImplementedError("not implemented")
 
   override fun toIntent(event: Event): Intent = when (event) {
-    is SearchCityEvent -> SearchCityIntent(event.q, connectivityRepository, remoteCityRepository, localCityRepository)
-    else -> NothingIntent<CityModel>() // if we can not resolve event to intent
+    PickCityEvent -> PickCityIntent()
+    LoadCityEvent -> LoadCityIntent(preferenceRepository, localCityRepository)
+    else -> NothingIntent<SplashModel>() // if we can not resolve event to intent
   }
 } 

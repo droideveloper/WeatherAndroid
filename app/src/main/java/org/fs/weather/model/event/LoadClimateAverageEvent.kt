@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util 
+package org.fs.weather.model.event
 
-sealed class Operations {
-  companion object {
+import org.fs.architecture.mvi.common.Event
+import org.fs.weather.model.entity.ClimateAverage
 
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
-}
+data class LoadClimateAverageEvent(val climateAverage: ClimateAverage): Event

@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util 
+package org.fs.weather.widget
 
-sealed class Operations {
-  companion object {
+import android.content.Context
+import android.support.constraint.ConstraintLayout
+import android.support.v4.view.ViewCompat
+import android.util.AttributeSet
+import org.fs.weather.R
 
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
+class ElevatedConstraintLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, style: Int = 0): ConstraintLayout(context, attrs, style) {
+
+  private val defaultElevation by lazy { resources.getDimension(R.dimen.default_elevation) }
+
+  init {
+    ViewCompat.setElevation(this, defaultElevation)
   }
 }

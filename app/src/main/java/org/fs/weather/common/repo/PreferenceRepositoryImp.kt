@@ -17,6 +17,8 @@
 package org.fs.weather.common.repo
 
 import android.content.Context
+import android.content.SharedPreferences
+import org.fs.architecture.mvi.util.EMPTY
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,7 +27,23 @@ class PreferenceRepositoryImp @Inject constructor(context: Context): PreferenceR
 
   companion object {
     private const val APP_PREFERENCES = "app.preferences"
+
+    private const val PREF_KEY_SELECTED_CITY = "pref.key.selected.city"
   }
 
   private val preferences by lazy { context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE) }
+
+  override var selectedCityName: String
+    get() = preferences.getString(PREF_KEY_SELECTED_CITY, String.EMPTY) ?: String.EMPTY
+    set(value) {
+      preferences.edit {
+        putString(PREF_KEY_SELECTED_CITY, value)
+      }
+    }
+
+  private fun SharedPreferences.edit(block: SharedPreferences.Editor.() -> Unit) {
+    val editor = edit()
+    block(editor)
+    editor.apply()
+  }
 }

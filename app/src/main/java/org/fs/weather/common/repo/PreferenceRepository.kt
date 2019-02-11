@@ -17,4 +17,5 @@
 package org.fs.weather.common.repo
 
 interface PreferenceRepository {
+  var selectedCityName: String
 }

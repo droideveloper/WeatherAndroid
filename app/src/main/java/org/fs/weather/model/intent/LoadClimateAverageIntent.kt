@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util 
+package org.fs.weather.model.intent
 
-sealed class Operations {
-  companion object {
+import io.reactivex.Observable
+import org.fs.architecture.mvi.common.*
+import org.fs.weather.model.ClimateAverageModel
+import org.fs.weather.model.entity.ClimateAverage
+import org.fs.weather.util.Operations.Companion.REFRESH
 
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
+class LoadClimateAverageIntent(private val climateAverage: ClimateAverage): ObservableIntent<ClimateAverageModel>() {
+
+  override fun invoke(): Observable<Reducer<ClimateAverageModel>> = Observable.just(
+    { o -> o.copy(state = Operation(REFRESH, initialState = false), data = climateAverage) },
+    { o -> o.copy(state = Idle, data = ClimateAverage.EMPTY) }
+  )
 }

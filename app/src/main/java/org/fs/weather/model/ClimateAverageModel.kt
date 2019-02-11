@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.fs.weather.model
 
-package org.fs.weather.util 
+import org.fs.architecture.mvi.common.Model
+import org.fs.architecture.mvi.common.SyncState
+import org.fs.weather.model.entity.ClimateAverage
 
-sealed class Operations {
-  companion object {
-
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
-}
+data class ClimateAverageModel(override val state: SyncState, override val data: ClimateAverage) : Model<ClimateAverage>(state, data)

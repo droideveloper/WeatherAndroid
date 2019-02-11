@@ -36,7 +36,6 @@ sealed class C {
     const val DEFAULT_NUM_OF_DAYS = 5
     const val DEFAULT_FORMAT = "json"
 
-    // operation niches
-    const val REFRESH = 0x01
+    const val RECYCLER_CACHE_SIZE = 10
   }
 }

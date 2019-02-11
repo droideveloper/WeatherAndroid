@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package org.fs.weather.util 
+package org.fs.weather.view.holder
 
-sealed class Operations {
-  companion object {
+import android.view.View
+import org.fs.architecture.mvi.core.AbstractRecyclerViewHolder
+import org.fs.weather.model.entity.City
 
-    const val REFRESH = 0x01
-    const val PICK_CITY = 0x02
-    const val LOAD_CITY = 0x03
-  }
-}
+abstract class BaseCityViewHolder(view: View): AbstractRecyclerViewHolder<City>(view)
