@@ -16,9 +16,61 @@
 
 package org.fs.weather.common.di.module
 
+import android.content.Context
+import com.google.gson.GsonBuilder
 import dagger.Module
+import dagger.Provides
+import okhttp3.Cache
+import okhttp3.HttpUrl
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.fs.weather.BuildConfig
+import org.fs.weather.net.Endpoint
+import org.fs.weather.util.log
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.lang.IllegalArgumentException
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 class NetworkModule {
   // Network configuration will be here
+
+  @Singleton @Provides fun provideHttpUrl(): HttpUrl = HttpUrl.parse(BuildConfig.BASE_URL) ?: throw IllegalArgumentException("we think that this url is invalid ${BuildConfig.BASE_URL}")
+
+  @Singleton @Provides fun provideGson() = GsonBuilder().create()
+
+  @Singleton @Provides fun provideFactory(context: Context, auth: Interceptor): OkHttpClient {
+    val logger = HttpLoggingInterceptor.Logger { log(it) }
+    val l = HttpLoggingInterceptor(logger)
+    l.level = HttpLoggingInterceptor.Level.BODY
+
+    val cache = File(context.cacheDir, "http")
+    val c = Cache(cache, 12 * 1024 * 1024L) // 12MB
+
+    val factory = OkHttpClient.Builder()
+      .connectTimeout(5, TimeUnit.SECONDS)
+      .readTimeout(5, TimeUnit.SECONDS)
+      .writeTimeout(5, TimeUnit.SECONDS)
+      .cache(c)
+
+    if (BuildConfig.DEBUG) {
+      factory.addInterceptor(l)
+    }
+    factory.addInterceptor(auth)
+    return factory.build()
+  }
+
+  @Singleton @Provides fun provideRetrofit(factory: OkHttpClient, url: HttpUrl): Retrofit = Retrofit.Builder()
+    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    .addConverterFactory(GsonConverterFactory.create())
+    .baseUrl(url)
+    .callFactory(factory)
+    .build()
+
+  @Singleton @Provides fun provideEndpoint(retrofit: Retrofit): Endpoint = retrofit.create(Endpoint::class.java)
 }

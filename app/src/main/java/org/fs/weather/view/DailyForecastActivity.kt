@@ -20,6 +20,8 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.view_daily_forecastl_activity.*
+import org.fs.architecture.mvi.common.Failure
+import org.fs.architecture.mvi.common.Idle
 import org.fs.architecture.mvi.common.Operation
 import org.fs.architecture.mvi.core.AbstractActivity
 import org.fs.architecture.mvi.util.ObservableList
@@ -32,12 +34,12 @@ import org.fs.weather.model.event.LoadDailyForecastEvent
 import org.fs.weather.util.C
 import org.fs.weather.util.Operations.Companion.REFRESH
 import org.fs.weather.util.bind
+import org.fs.weather.util.showError
 import org.fs.weather.view.adapter.HourlyForecastAdapter
 import org.fs.weather.vm.DailyForecastActivityViewModel
 import javax.inject.Inject
 
-class DailyForecastActivity : AbstractActivity<DailyForecastModel, DailyForecastActivityViewModel>(),
-  DailyForecastActivityView {
+class DailyForecastActivity : AbstractActivity<DailyForecastModel, DailyForecastActivityViewModel>(), DailyForecastActivityView {
 
   companion object {
     const val BUNDLE_ARGS_DAILY_FORECAST = "bundle.args.daily.forecast"
@@ -51,6 +53,11 @@ class DailyForecastActivity : AbstractActivity<DailyForecastModel, DailyForecast
   private var dailyForecast = DailyForecast.EMPTY
 
   override val layoutRes: Int get() = 0
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    overridePendingTransition(R.anim.translate_right_in, R.anim.scale_out)
+    super.onCreate(savedInstanceState)
+  }
 
   override fun setUp(state: Bundle?) {
     dailyForecast = state?.getParcelable(BUNDLE_ARGS_DAILY_FORECAST) ?: DailyForecast.EMPTY
@@ -86,12 +93,31 @@ class DailyForecastActivity : AbstractActivity<DailyForecastModel, DailyForecast
   }
 
   override fun render(model: DailyForecastModel) {
-    // TODO implement this
+    when(model.state) {
+      is Idle -> Unit
+      is Operation -> when(model.state.type) {
+        REFRESH -> {
+          if (model.data != DailyForecast.EMPTY) {
+            val array = model.data.hourly ?: emptyList()
+            if (array.isNotEmpty()) {
+              dataSet.addAll(array)
+            }
+          }
+        }
+        else -> Unit
+      }
+      is Failure -> showError(model.state.error)
+    }
   }
 
   private fun checkIfInitialLoadNeeded() {
     if (dailyForecast != DailyForecast.EMPTY) {
       accept(LoadDailyForecastEvent(dailyForecast))
     }
+  }
+
+  override fun finish() {
+    super.finish()
+    overridePendingTransition(R.anim.scale_in, R.anim.translate_right_out)
   }
 } 

@@ -15,22 +15,31 @@
  */
 package org.fs.weather.vm
 
-import org.fs.architecture.mvi.common.Event
-import org.fs.architecture.mvi.common.ForFragment
-import org.fs.architecture.mvi.common.Intent
+import org.fs.architecture.mvi.common.*
 import org.fs.architecture.mvi.core.AbstractViewModel
+import org.fs.weather.common.repo.ConnectivityRepository
+import org.fs.weather.common.repo.LocalForecastRepository
+import org.fs.weather.common.repo.RemoteForecastRepository
 import org.fs.weather.model.ForecastModel
+import org.fs.weather.model.entity.Forecast
+import org.fs.weather.model.event.LoadForecastEvent
+import org.fs.weather.model.intent.LoadForecastIntent
 import org.fs.weather.model.intent.NothingIntent
 import org.fs.weather.view.MainActivityView
 import javax.inject.Inject
 
-@ForFragment
-class MainActivityViewModel @Inject constructor(view: MainActivityView) :
+@ForActivity
+class MainActivityViewModel @Inject constructor(
+  private val connectivityRepository: ConnectivityRepository,
+  private val localForecastRepository: LocalForecastRepository,
+  private val remoteForecastRepository: RemoteForecastRepository,
+  view: MainActivityView) :
   AbstractViewModel<ForecastModel, MainActivityView>(view) {
 
-  override fun initState(): ForecastModel = throw NotImplementedError("not implemented")
+  override fun initState(): ForecastModel = ForecastModel(state = Idle, data = Forecast.EMPTY)
 
   override fun toIntent(event: Event): Intent = when (event) {
+    is LoadForecastEvent -> LoadForecastIntent(event.city, connectivityRepository, remoteForecastRepository, localForecastRepository)
     else -> NothingIntent<ForecastModel>() // if we can not resolve event to intent
   }
 } 

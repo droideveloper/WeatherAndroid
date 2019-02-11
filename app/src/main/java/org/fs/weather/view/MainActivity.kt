@@ -65,6 +65,11 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
 
   private var city = City.EMPTY
 
+  override fun onCreate(savedInstanceState: Bundle?) {
+    overridePendingTransition(R.anim.translate_right_in, R.anim.scale_out)
+    super.onCreate(savedInstanceState)
+  }
+
   override fun setUp(state: Bundle?) {
     // when we select city
     city = state?.getParcelable(BUNDLE_ARGS_CITY) ?: City.EMPTY
@@ -154,5 +159,10 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
 
   private fun clearState() {
     dataSet.clear()
+  }
+
+  override fun finish() {
+    super.finish()
+    overridePendingTransition(R.anim.scale_in, R.anim.translate_right_out)
   }
 } 
