@@ -1,5 +1,5 @@
 /*
- * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
+ * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.fs.weather.model
 
-package org.fs.weather.common.repo
+import org.fs.architecture.mvi.common.Model
+import org.fs.architecture.mvi.common.SyncState
+import org.fs.weather.model.entity.Forecast
 
-import io.reactivex.Observable
-import org.fs.weather.model.entity.City
-import org.fs.weather.model.net.Resource
-
-interface RemoteCityRepository {
-  fun loadCities(q: String): Observable<Resource<List<City>>>
-}
+data class ForecastModel(override val state: SyncState, override val data: Forecast) : Model<Forecast>(state, data)

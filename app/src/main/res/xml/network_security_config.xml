@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 /*
  * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,13 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.fs.weather.common.repo
-
-import io.reactivex.Observable
-import org.fs.weather.model.entity.City
-import org.fs.weather.model.net.Resource
-
-interface RemoteCityRepository {
-  fun loadCities(q: String): Observable<Resource<List<City>>>
-}
+ -->
+<network-security-cofig
+  xmlns:android="http://schemas.android.com/apk/res/android">
+</network-security-cofig>
