@@ -33,4 +33,6 @@
 
   <string name="str_temp_c" formatted="true">%s \u2103</string>
   <string name="str_temp_f" formatted="true">%s \u2109</string>
+
+  <string name="str_citizens" formatted="true">%s citizens</string>
 </resources>

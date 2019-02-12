@@ -26,8 +26,8 @@ import org.fs.architecture.mvi.common.ForActivity
 import org.fs.weather.App
 import org.fs.weather.common.net.AuthInterceptor
 import org.fs.weather.common.repo.*
-import org.fs.weather.net.EndpointImp
-import org.fs.weather.net.EndpointProxy
+import org.fs.weather.mock.net.EndpointImp
+import org.fs.weather.mock.net.EndpointProxy
 import org.fs.weather.view.DailyForecastActivity
 import org.fs.weather.view.MainActivity
 import org.fs.weather.view.SplashActivity

@@ -1,5 +1,5 @@
 /*
- * Weather Kotlin Android Copyright (C) 2019 Fatih, Ozan Inc..
+ * Ozan Inc. Copyright (C) 2019 Fatih, Weather Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-package org.fs.weather.net
+package org.fs.weather.mock.repo
 
-import io.reactivex.Observable
-import org.fs.weather.model.entity.City
-import org.fs.weather.model.entity.Forecast
-import org.fs.weather.model.net.Resource
-import org.fs.weather.util.C.Companion.DEFAULT_NUM_OF_DAYS
+import org.fs.weather.common.repo.ConnectivityRepository
 
-interface EndpointProxy {
+class MockConnectivityRepository(private val isConnected: Boolean): ConnectivityRepository {
 
-  fun weatherFor(q: String, days: Int = DEFAULT_NUM_OF_DAYS): Observable<Resource<Forecast>>
-
-  fun cityFor(q: String): Observable<Resource<List<City>>>
+  override fun isConnected(): Boolean = isConnected
 }

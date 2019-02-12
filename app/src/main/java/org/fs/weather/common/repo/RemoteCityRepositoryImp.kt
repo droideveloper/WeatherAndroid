@@ -19,7 +19,7 @@ package org.fs.weather.common.repo
 import io.reactivex.Observable
 import org.fs.weather.model.entity.City
 import org.fs.weather.model.net.Resource
-import org.fs.weather.net.EndpointProxy
+import org.fs.weather.mock.net.EndpointProxy
 import javax.inject.Inject
 import javax.inject.Singleton
 
