@@ -17,6 +17,6 @@
 package org.fs.weather.model.event
 
 import org.fs.architecture.mvi.common.Event
-import org.fs.weather.model.entity.ClimateAverage
+import org.fs.weather.model.entity.MonthlyAverage
 
-data class LoadClimateAverageEvent(val climateAverage: ClimateAverage): Event
+data class LoadClimateAverageEvent(val climateAverage: MonthlyAverage): Event

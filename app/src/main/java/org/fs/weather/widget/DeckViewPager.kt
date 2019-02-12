@@ -27,7 +27,7 @@ class DeckViewPager @JvmOverloads constructor(context: Context, attrs: Attribute
   private val pagePadding by lazy { resources.getDimensionPixelSize(R.dimen.page_padding) }
 
   init {
-    setPadding(pagePadding, 0, pagePadding, 0)
+    setPadding(pagePadding, defaultMargin, pagePadding, defaultMargin)
     pageMargin = defaultMargin
     clipToPadding = false
   }

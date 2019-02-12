@@ -24,7 +24,7 @@ import org.fs.weather.R
 
 class ElevatedConstraintLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, style: Int = 0): ConstraintLayout(context, attrs, style) {
 
-  private val defaultElevation by lazy { resources.getDimension(R.dimen.default_elevation) }
+  private val defaultElevation by lazy { resources.getDimension(R.dimen.default_margin) }
 
   init {
     ViewCompat.setElevation(this, defaultElevation)

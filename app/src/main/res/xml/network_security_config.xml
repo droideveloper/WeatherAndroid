@@ -16,6 +16,6 @@
  * limitations under the License.
  */
  -->
-<network-security-cofig>
+<network-security-config>
   <base-config cleartextTrafficPermitted="true" />
-</network-security-cofig>
+</network-security-config>

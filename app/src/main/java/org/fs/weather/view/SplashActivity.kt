@@ -34,6 +34,7 @@ import org.fs.weather.model.event.PickCityEvent
 import org.fs.weather.model.event.SelectCityEvent
 import org.fs.weather.util.Operations.Companion.LOAD_CITY
 import org.fs.weather.util.Operations.Companion.PICK_CITY
+import org.fs.weather.util.Operations.Companion.SELECT_CITY
 import org.fs.weather.util.showError
 import org.fs.weather.vm.SplashActivityViewModel
 import javax.inject.Inject
@@ -50,7 +51,7 @@ class SplashActivity : AbstractActivity<SplashModel, SplashActivityViewModel>(),
     super.attach()
 
     disposeBag += BusManager.add(Consumer { evt -> when(evt) {
-        is SelectCityEvent -> persistIfNeededAndStartActivity(evt.city, true)
+        is SelectCityEvent -> accept(evt)
       }
     })
 
@@ -69,7 +70,12 @@ class SplashActivity : AbstractActivity<SplashModel, SplashActivityViewModel>(),
           trans.replace(R.id.viewContentFrame, CityFragment())
           trans.commit()
         }
-        LOAD_CITY -> persistIfNeededAndStartActivity(model.data, false)
+        LOAD_CITY -> startActivityNext(model.data)
+        SELECT_CITY -> {
+          if (model.data != City.EMPTY) {
+            startActivityNext(model.data)
+          }
+        }
         else -> Unit
       }
       is Failure -> showError(model.state.error)
@@ -88,14 +94,10 @@ class SplashActivity : AbstractActivity<SplashModel, SplashActivityViewModel>(),
     }
   }
 
-  private fun persistIfNeededAndStartActivity(city: City, shouldPersists: Boolean = true) {
+  private fun startActivityNext(city: City) {
     startActivity(Intent(this, MainActivity::class.java).apply {
       putExtra(MainActivity.BUNDLE_ARGS_CITY, city)
-    }).also {
-      if (shouldPersists) {
-        preferenceRepository.selectedCityName = city.areaName?.firstOrNull()?.value ?: String.EMPTY
-      }
-      finish()
-    }
+    })
+    finish()
   }
 } 

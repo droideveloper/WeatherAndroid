@@ -20,5 +20,5 @@
   <dimen name="default_elevation">4dip</dimen>
   <dimen name="default_margin">8dip</dimen>
   <dimen name="page_padding">48dip</dimen>
-  <dimen name="page_height">240dip</dimen>
+  <dimen name="page_height">160dip</dimen>
 </resources>

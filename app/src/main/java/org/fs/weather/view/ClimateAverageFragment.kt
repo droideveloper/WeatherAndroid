@@ -16,14 +16,17 @@
 package org.fs.weather.view
 
 import android.os.Bundle
+import kotlinx.android.synthetic.main.view_average_forecast_fragment.*
 import org.fs.architecture.mvi.common.Failure
 import org.fs.architecture.mvi.common.Idle
 import org.fs.architecture.mvi.common.Operation
 import org.fs.architecture.mvi.core.AbstractFragment
+import org.fs.architecture.mvi.util.EMPTY
 import org.fs.architecture.mvi.util.plusAssign
 import org.fs.weather.R
 import org.fs.weather.model.ClimateAverageModel
 import org.fs.weather.model.entity.ClimateAverage
+import org.fs.weather.model.entity.MonthlyAverage
 import org.fs.weather.model.event.LoadClimateAverageEvent
 import org.fs.weather.util.Operations.Companion.REFRESH
 import org.fs.weather.util.showError
@@ -34,19 +37,19 @@ class ClimateAverageFragment : AbstractFragment<ClimateAverageModel, ClimateAver
   companion object {
     private const val BUNDLE_ARGS_CLIMATE_AVERAGE = "bundle.args.climate.average"
 
-    @JvmStatic fun newInstance(climateAverage: ClimateAverage): ClimateAverageFragment = ClimateAverageFragment().apply {
+    @JvmStatic fun newInstance(climateAverage: MonthlyAverage): ClimateAverageFragment = ClimateAverageFragment().apply {
       arguments = Bundle().apply {
         putParcelable(BUNDLE_ARGS_CLIMATE_AVERAGE, climateAverage)
       }
     }
   }
 
-  private var climateAverage = ClimateAverage.EMPTY
+  private var climateAverage = MonthlyAverage.EMPTY
 
   override val layoutRes: Int get() = R.layout.view_average_forecast_fragment
 
   override fun setUp(state: Bundle?) {
-    climateAverage = state?.getParcelable(BUNDLE_ARGS_CLIMATE_AVERAGE) ?: ClimateAverage.EMPTY
+    climateAverage = state?.getParcelable(BUNDLE_ARGS_CLIMATE_AVERAGE) ?: MonthlyAverage.EMPTY
   }
 
   override fun attach() {
@@ -70,12 +73,20 @@ class ClimateAverageFragment : AbstractFragment<ClimateAverageModel, ClimateAver
   }
 
   private fun checkIfRenderNeeded() {
-    if (climateAverage != ClimateAverage.EMPTY) {
+    if (climateAverage != MonthlyAverage.EMPTY) {
       accept(LoadClimateAverageEvent(climateAverage))
     }
   }
 
-  private fun bind(climateAverage: ClimateAverage) {
-    // TODO bind data in here
+  private fun bind(climateAverage: MonthlyAverage) {
+    viewTextMonth.text = climateAverage.name
+    val max = climateAverage.absMaxTempC ?: String.EMPTY
+    val maxValue = if (max.length > 3) max.subSequence(0, 3) else max
+    viewTextMaxTemp.text = getString(R.string.str_avg_temp_max_c, maxValue)
+
+    val min = climateAverage.avgMinTempC ?: String.EMPTY
+    val minValue = if(min.length > 3) min.subSequence(0, 3) else min
+    viewTextMinTemp.text = getString(R.string.str_avg_temp_min_c, minValue)
+    viewTextDailyRainfall.text = getString(R.string.str_avg_rainfall, climateAverage.avgDailyRainfall)
   }
 }

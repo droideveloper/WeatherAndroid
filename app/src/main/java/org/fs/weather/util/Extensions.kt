@@ -18,6 +18,10 @@ package org.fs.weather.util
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
+import io.reactivex.Completable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.fs.architecture.mvi.common.View
 import org.fs.architecture.mvi.util.EMPTY
 import org.fs.weather.BuildConfig
@@ -44,13 +48,16 @@ inline fun <reified T> T.log(error: Throwable) {
 inline fun <reified T> T.isLogEnabled(): Boolean = BuildConfig.DEBUG
 inline fun <reified T> T.getClassTag(): String = T::class.java.simpleName
 
+fun Completable.async(): Completable = subscribeOn(Schedulers.io())
+  .observeOn(AndroidSchedulers.mainThread())
+
 fun City.hasAreaName(q: String): Boolean {
   val areaName = areaName?.firstOrNull()?.value ?: String.EMPTY
   return areaName.contains(q)
 }
 
 fun View.showError(error: Throwable) {
-
+  log(error)
 }
 
 fun SwipeRefreshLayout.bind(enable: Boolean) {

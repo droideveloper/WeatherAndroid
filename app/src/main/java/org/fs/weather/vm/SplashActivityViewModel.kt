@@ -26,9 +26,11 @@ import org.fs.weather.model.SplashModel
 import org.fs.weather.model.entity.City
 import org.fs.weather.model.event.LoadCityEvent
 import org.fs.weather.model.event.PickCityEvent
+import org.fs.weather.model.event.SelectCityEvent
 import org.fs.weather.model.intent.LoadCityIntent
 import org.fs.weather.model.intent.NothingIntent
 import org.fs.weather.model.intent.PickCityIntent
+import org.fs.weather.model.intent.SelectCityIntent
 import org.fs.weather.view.SplashActivityView
 import javax.inject.Inject
 
@@ -43,6 +45,7 @@ class SplashActivityViewModel @Inject constructor(
   override fun toIntent(event: Event): Intent = when (event) {
     PickCityEvent -> PickCityIntent()
     LoadCityEvent -> LoadCityIntent(preferenceRepository, localCityRepository)
+    is SelectCityEvent -> SelectCityIntent(event.city, preferenceRepository, localCityRepository)
     else -> NothingIntent<SplashModel>() // if we can not resolve event to intent
   }
 } 

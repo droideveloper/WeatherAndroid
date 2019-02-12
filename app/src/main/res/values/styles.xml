@@ -18,7 +18,7 @@
  -->
 <resources>
   <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -26,7 +26,7 @@
     <item name="android:background">@drawable/ic_window_bg</item>
   </style>
 
-  <style name="ThemeNoBackground" parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="ThemeNoBackground" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

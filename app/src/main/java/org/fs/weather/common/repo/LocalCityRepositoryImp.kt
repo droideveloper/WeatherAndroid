@@ -33,19 +33,19 @@ class LocalCityRepositoryImp @Inject constructor(private val dao: CityDao): Loca
     .map { cities -> cities.filter { c -> c.hasAreaName(q) } }
     .map { cities -> Resource.Success(cities) }
 
-  override fun create(city: City): Completable = Completable.create {
+  override fun create(city: City): Completable = Completable.fromAction {
     dao.create(city)
   }
 
-  override fun update(city: City): Completable = Completable.create {
+  override fun update(city: City): Completable = Completable.fromAction {
     dao.update(city)
   }
 
-  override fun delete(city: City): Completable = Completable.create {
+  override fun delete(city: City): Completable = Completable.fromAction {
     dao.delete(city)
   }
 
-  override fun deleteAll(): Completable = Completable.create {
+  override fun deleteAll(): Completable = Completable.fromAction {
     dao.deleteAll()
   }
 }

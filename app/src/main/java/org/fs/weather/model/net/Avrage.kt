@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package org.fs.weather.model.intent
+package org.fs.weather.model.net
 
-import io.reactivex.Observable
-import org.fs.architecture.mvi.common.*
-import org.fs.weather.model.ClimateAverageModel
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import org.fs.weather.model.entity.MonthlyAverage
-import org.fs.weather.util.Operations.Companion.REFRESH
 
-class LoadClimateAverageIntent(private val climateAverage: MonthlyAverage): ObservableIntent<ClimateAverageModel>() {
-
-  override fun invoke(): Observable<Reducer<ClimateAverageModel>> = Observable.just(
-    { o -> o.copy(state = Operation(REFRESH, initialState = false), data = climateAverage) },
-    { o -> o.copy(state = Idle, data = MonthlyAverage.EMPTY) }
-  )
+@Parcelize
+data class Avrage(val month: List<MonthlyAverage>? = null): Parcelable {
+  companion object {
+    val EMPTY = Avrage()
+  }
 }

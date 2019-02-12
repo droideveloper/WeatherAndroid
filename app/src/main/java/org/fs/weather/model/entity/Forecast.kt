@@ -22,6 +22,8 @@ import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import org.fs.weather.model.net.Avrage
+import org.fs.weather.model.net.ClimateAverages
 
 @Entity(tableName = "forecasts")
 @Parcelize
@@ -30,7 +32,7 @@ class Forecast @Ignore constructor(
   var request: List<Request>? = null,
   @field:SerializedName("current_condition") var currentCondition: List<CurrentCondition>? = null,
   var weather: List<DailyForecast>? = null,
-  var climateAverages: List<ClimateAverage>? = null,
+  @field:SerializedName("ClimateAverages") var climateAverages: List<Avrage>? = null,
   var cityId: Long? = null): Parcelable {
 
   // default constructor

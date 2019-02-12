@@ -22,5 +22,6 @@ sealed class Operations {
     const val REFRESH = 0x01
     const val PICK_CITY = 0x02
     const val LOAD_CITY = 0x03
+    const val SELECT_CITY = 0x04
   }
 }

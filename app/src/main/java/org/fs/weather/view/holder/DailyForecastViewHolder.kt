@@ -28,6 +28,8 @@ import org.fs.rx.extensions.util.clicks
 import org.fs.weather.R
 import org.fs.weather.model.entity.DailyForecast
 import org.fs.weather.model.event.SelectDailyForecastEvent
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DailyForecastViewHolder(view: View): BaseDailyForecastViewHolder(view) {
 
@@ -38,13 +40,21 @@ class DailyForecastViewHolder(view: View): BaseDailyForecastViewHolder(view) {
   private val disposeBag by lazy { CompositeDisposable() }
   private val context by lazy { itemView.context }
 
+  private val calendar by lazy { Calendar.getInstance() }
+  private val parser by lazy { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+  private val format by lazy { SimpleDateFormat("MMMM dd, EEE ", Locale.getDefault()) }
+
   constructor(parent: ViewGroup): this(parent.inflate(R.layout.view_daily_forecast_item))
 
   override fun bind(value: DailyForecast) {
 
-    viewTextDate.text = value.date
-    viewTextMax.text = context.getString(R.string.str_avg_temp_max_c, value.maxTempC)
-    viewTextMin.text = context.getString(R.string.str_avg_temp_min_c, value.minTempC)
+    val d = parser.parse(value.date)
+    calendar.time = d
+    val text = format.format(calendar.time)
+
+    viewTextDate.text = text
+    viewTextMax.text = context.getString(R.string.str_temp_max_c, value.maxTempC)
+    viewTextMin.text = context.getString(R.string.str_temp_min_c, value.minTempC)
 
     disposeBag += bindSelectDailyForecastEvent(value).subscribe(BusManager.Companion::send)
   }

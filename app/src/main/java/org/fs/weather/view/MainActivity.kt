@@ -32,10 +32,7 @@ import org.fs.architecture.mvi.util.plusAssign
 import org.fs.rx.extensions.v4.util.refreshes
 import org.fs.weather.R
 import org.fs.weather.model.ForecastModel
-import org.fs.weather.model.entity.City
-import org.fs.weather.model.entity.ClimateAverage
-import org.fs.weather.model.entity.DailyForecast
-import org.fs.weather.model.entity.Forecast
+import org.fs.weather.model.entity.*
 import org.fs.weather.model.event.LoadForecastEvent
 import org.fs.weather.model.event.SelectDailyForecastEvent
 import org.fs.weather.util.C.Companion.RECYCLER_CACHE_SIZE
@@ -56,7 +53,7 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
   @Inject lateinit var dataSet: ObservableList<DailyForecast>
   @Inject lateinit var dailyForecastAdapter: DailyForecastAdapter
 
-  private val averageDataSet by lazy { ObservableList<ClimateAverage>() }
+  private val averageDataSet by lazy { ObservableList<MonthlyAverage>() }
   private val averagePagerAdapter by lazy { ClimateAveragePagerAdapter(supportFragmentManager, averageDataSet) }
 
   private val dividerDrawable by lazy { ResourcesCompat.getDrawable(resources, R.drawable.ic_vertical_divider, theme) }
@@ -88,6 +85,9 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
     viewPager.adapter = averagePagerAdapter
     // progress color
     viewSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+
+    val title = "${city.areaName?.firstOrNull()?.value}, ${city.country?.firstOrNull()?.value}"
+    viewTextTitle.text = title
   }
 
   override fun attach() {
@@ -139,7 +139,7 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
             if (array.isNotEmpty()) {
               dataSet.addAll(array)
             }
-            val averages = data.climateAverages ?: emptyList()
+            val averages = data.climateAverages?.firstOrNull()?.month ?: emptyList()
             if (averages.isNotEmpty()) {
               averageDataSet.addAll(averages)
             }
@@ -152,13 +152,14 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
   }
 
   private fun checkIfInitialLoadNeeded() {
-    if (city != City.EMPTY) {
+    if (city != City.EMPTY && dataSet.isEmpty()) {
       accept(LoadForecastEvent(city))
     }
   }
 
   private fun clearState() {
     dataSet.clear()
+    averageDataSet.clear()
   }
 
   override fun finish() {

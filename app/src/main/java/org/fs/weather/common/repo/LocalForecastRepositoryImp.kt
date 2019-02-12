@@ -31,19 +31,19 @@ class LocalForecastRepositoryImp @Inject constructor(private val dao: ForecastDa
     .toObservable()
     .map { forecast -> Resource.Success(forecast) }
 
-  override fun create(forecast: Forecast): Completable = Completable.create {
+  override fun create(forecast: Forecast): Completable = Completable.fromAction {
     dao.create(forecast)
   }
 
-  override fun update(forecast: Forecast): Completable = Completable.create {
+  override fun update(forecast: Forecast): Completable = Completable.fromAction {
     dao.update(forecast)
   }
 
-  override fun delete(forecast: Forecast): Completable = Completable.create {
+  override fun delete(forecast: Forecast): Completable = Completable.fromAction {
     dao.delete(forecast)
   }
 
-  override fun deleteAll(): Completable = Completable.create {
+  override fun deleteAll(): Completable = Completable.fromAction {
     dao.deleteAll()
   }
 }

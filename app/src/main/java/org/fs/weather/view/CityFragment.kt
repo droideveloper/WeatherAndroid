@@ -20,6 +20,8 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.view_city_fragment.*
+import org.fs.architecture.mvi.common.Failure
+import org.fs.architecture.mvi.common.Idle
 import org.fs.architecture.mvi.common.Operation
 import org.fs.architecture.mvi.core.AbstractFragment
 import org.fs.architecture.mvi.util.ObservableList
@@ -33,6 +35,7 @@ import org.fs.weather.model.event.SearchCityEvent
 import org.fs.weather.util.C.Companion.RECYCLER_CACHE_SIZE
 import org.fs.weather.util.Operations.Companion.REFRESH
 import org.fs.weather.util.bind
+import org.fs.weather.util.showError
 import org.fs.weather.view.adapter.CityAdapter
 import org.fs.weather.vm.CityFragmentViewModel
 import java.util.concurrent.TimeUnit
@@ -92,10 +95,24 @@ class CityFragment : AbstractFragment<CityModel, CityFragmentViewModel>(), CityF
   }
 
   override fun render(model: CityModel) {
-    // TODO implement this
+    when(model.state) {
+      is Idle -> Unit
+      is Operation -> when(model.state.type) {
+        REFRESH -> {
+          val array = model.data
+          if (array.isNotEmpty()) {
+            dataSet.addAll(array)
+          }
+        }
+        else -> Unit
+      }
+      is Failure -> showError(model.state.error)
+    }
   }
 
   private fun clearDataState() {
-    dataSet.clear()
+    viewRecycler.post {
+      dataSet.clear()
+    }
   }
 }

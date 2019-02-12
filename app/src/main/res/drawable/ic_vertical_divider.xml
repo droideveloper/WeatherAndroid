@@ -18,8 +18,8 @@
  -->
 <layer-list
   xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:left="48dip"
-    android:right="48dip"
+  <item android:left="@dimen/default_margin"
+    android:right="@dimen/default_margin"
     android:gravity="fill_horizontal">
     <shape android:shape="rectangle">
       <size android:height="1dip" />

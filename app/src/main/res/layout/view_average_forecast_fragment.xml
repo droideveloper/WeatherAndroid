@@ -20,6 +20,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:support="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:background="#DDDDDD"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
 
@@ -29,6 +30,7 @@
     support:layout_constraintTop_toTopOf="parent"
     support:layout_constraintEnd_toEndOf="parent"
     android:layout_margin="8dip"
+    android:gravity="center"
     tools:text="@string/app_name"
     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
     android:layout_width="0dip"

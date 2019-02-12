@@ -33,4 +33,7 @@ abstract class ActivityModule {
 
   @ForFragment @ContributesAndroidInjector(modules = [FragmentModule::class, FragmentProviderModule::class])
   abstract fun contributeCityFragment(): CityFragment
+
+  @ForFragment @ContributesAndroidInjector(modules = [FragmentModule::class, FragmentProviderModule::class])
+  abstract fun contributeClimateAverageFragment(): ClimateAverageFragment
 }

@@ -21,9 +21,13 @@ import dagger.Module
 import org.fs.architecture.mvi.common.ForFragment
 import org.fs.weather.view.CityFragment
 import org.fs.weather.view.CityFragmentView
+import org.fs.weather.view.ClimateAverageFragment
+import org.fs.weather.view.ClimateAverageFragmentView
 
 @Module
 abstract class FragmentModule {
 
   @ForFragment @Binds abstract fun bindCityFragmentView(fragment: CityFragment): CityFragmentView
+
+  @ForFragment @Binds abstract fun bindClimateAverageFragmentView(fragment: ClimateAverageFragment): ClimateAverageFragmentView
 }

@@ -21,6 +21,7 @@ import android.text.TextUtils
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.fs.weather.model.entity.*
+import org.fs.weather.model.net.Avrage
 
 sealed class ExtraConverters {
 
@@ -37,9 +38,9 @@ sealed class ExtraConverters {
     // dailyForecast
     @JvmStatic private val typeTokenDailyForecast = object: TypeToken<List<DailyForecast>>() {}
     @JvmStatic private val typeAdapterDailyForecast = serializer.getAdapter(typeTokenDailyForecast)
-    // climateAverage
-    @JvmStatic private val typeTokenClimateAverage = object: TypeToken<List<ClimateAverage>>() {}
-    @JvmStatic private val typeAdapterClimateAverage = serializer.getAdapter(typeTokenClimateAverage)
+    // averages
+    @JvmStatic private val typeTokenClimateAverages = object: TypeToken<List<Avrage>>() { }
+    @JvmStatic private val typeAdapterClimateAverages = serializer.getAdapter(typeTokenClimateAverages)
     // valueObject
     @JvmStatic private val typeTokenValueObject = object: TypeToken<List<ValueObject>>() {}
     @JvmStatic private val typeAdapterValueObject = serializer.getAdapter(typeTokenValueObject)
@@ -86,20 +87,6 @@ sealed class ExtraConverters {
       return null
     }
 
-    @JvmStatic @TypeConverter fun convertClimateAverageListToString(climateAverages: List<ClimateAverage>?): String? {
-      if (climateAverages != null && climateAverages.isNotEmpty()) {
-        return typeAdapterClimateAverage.toJson(climateAverages)
-      }
-      return null
-    }
-
-    @JvmStatic @TypeConverter fun convertStringToClimateAverageList(value: String?): List<ClimateAverage>? {
-      if (!TextUtils.isEmpty(value)) {
-        return typeAdapterClimateAverage.fromJson(value)
-      }
-      return null
-    }
-
     @JvmStatic @TypeConverter fun convertValueObjectListToString(valueObjects: List<ValueObject>?): String? {
       if (valueObjects != null && valueObjects.isNotEmpty()) {
         return typeAdapterValueObject.toJson(valueObjects)
@@ -110,6 +97,20 @@ sealed class ExtraConverters {
     @JvmStatic @TypeConverter fun convertStringToValueObjectList(value: String?): List<ValueObject>? {
       if (!TextUtils.isEmpty(value)) {
         return typeAdapterValueObject.fromJson(value)
+      }
+      return null
+    }
+
+    @JvmStatic @TypeConverter fun convertCliamgeAveragesToString(value: List<Avrage>?): String? {
+      if (value != null) {
+        return typeAdapterClimateAverages.toJson(value)
+      }
+      return null
+    }
+
+    @JvmStatic @TypeConverter fun convertStringToClimateAverages(value: String?): List<Avrage>? {
+      if (!TextUtils.isEmpty(value)) {
+        return typeAdapterClimateAverages.fromJson(value)
       }
       return null
     }

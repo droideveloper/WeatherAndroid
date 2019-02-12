@@ -17,6 +17,6 @@ package org.fs.weather.model
 
 import org.fs.architecture.mvi.common.Model
 import org.fs.architecture.mvi.common.SyncState
-import org.fs.weather.model.entity.ClimateAverage
+import org.fs.weather.model.entity.MonthlyAverage
 
-data class ClimateAverageModel(override val state: SyncState, override val data: ClimateAverage) : Model<ClimateAverage>(state, data)
+data class ClimateAverageModel(override val state: SyncState, override val data: MonthlyAverage) : Model<MonthlyAverage>(state, data)

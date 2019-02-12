@@ -17,10 +17,20 @@
  */
  -->
 <resources>
-  <string name="str_avg_temp_min_c" formatted="true">Average Min %s C &#x2103;</string>
-  <string name="str_avg_temp_min_f" formatted="true">Average Min %s F &#x2103;</string>
+  <string name="str_avg_temp_min_c" formatted="true">Avg Min %s \u2103</string>
+  <string name="str_avg_temp_min_f" formatted="true">Avg Min %s \u2109</string>
 
-  <string name="str_avg_temp_max_c" formatted="true">Average Max %s C &#x2103;</string>
-  <string name="str_avg_temp_max_f" formatted="true">Average Max %s F &#x2103;</string>
+  <string name="str_avg_temp_max_c" formatted="true">Avg Max %s \u2103</string>
+  <string name="str_avg_temp_max_f" formatted="true">Avg Max %s \u2109</string>
 
+  <string name="str_avg_rainfall" formatted="true">Avg Rainfall %s</string>
+
+  <string name="str_temp_min_c" formatted="true">Min %s \u2103</string>
+  <string name="str_temp_min_f" formatted="true">Min %s \u2109</string>
+
+  <string name="str_temp_max_c" formatted="true">Max %s \u2103</string>
+  <string name="str_temp_max_f" formatted="true">Max %s \u2109</string>
+
+  <string name="str_temp_c" formatted="true">%s \u2103</string>
+  <string name="str_temp_f" formatted="true">%s \u2109</string>
 </resources>

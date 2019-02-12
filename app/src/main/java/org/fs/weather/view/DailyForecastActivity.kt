@@ -26,6 +26,7 @@ import org.fs.architecture.mvi.common.Operation
 import org.fs.architecture.mvi.core.AbstractActivity
 import org.fs.architecture.mvi.util.ObservableList
 import org.fs.architecture.mvi.util.plusAssign
+import org.fs.rx.extensions.v7.util.navigationClicks
 import org.fs.weather.R
 import org.fs.weather.model.DailyForecastModel
 import org.fs.weather.model.entity.DailyForecast
@@ -37,6 +38,8 @@ import org.fs.weather.util.bind
 import org.fs.weather.util.showError
 import org.fs.weather.view.adapter.HourlyForecastAdapter
 import org.fs.weather.vm.DailyForecastActivityViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class DailyForecastActivity : AbstractActivity<DailyForecastModel, DailyForecastActivityViewModel>(), DailyForecastActivityView {
@@ -50,9 +53,13 @@ class DailyForecastActivity : AbstractActivity<DailyForecastModel, DailyForecast
   @Inject lateinit var dataSet: ObservableList<HourlyForecast>
   @Inject lateinit var hourlyForecastAdapter: HourlyForecastAdapter
 
+  private val calendar by lazy { Calendar.getInstance() }
+  private val parser by lazy { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+  private val format by lazy { SimpleDateFormat("MMMM dd, EEE ", Locale.getDefault()) }
+
   private var dailyForecast = DailyForecast.EMPTY
 
-  override val layoutRes: Int get() = 0
+  override val layoutRes: Int get() = R.layout.view_daily_forecastl_activity
 
   override fun onCreate(savedInstanceState: Bundle?) {
     overridePendingTransition(R.anim.translate_right_in, R.anim.scale_out)
@@ -73,10 +80,21 @@ class DailyForecastActivity : AbstractActivity<DailyForecastModel, DailyForecast
         addItemDecoration(divider)
       }
     }
+
+    viewSwipeRefreshLayout.isEnabled = false
+
+    val d = parser.parse(dailyForecast.date)
+    calendar.time = d
+    val text = format.format(calendar.time)
+
+    viewTextTitle.text = text
   }
 
   override fun attach() {
     super.attach()
+
+    disposeBag += viewToolbar.navigationClicks()
+      .subscribe { finish() }
 
     disposeBag += viewModel.state()
       .map { state ->

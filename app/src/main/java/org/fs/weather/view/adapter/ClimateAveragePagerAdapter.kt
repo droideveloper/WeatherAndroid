@@ -21,10 +21,10 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import org.fs.architecture.mvi.common.PropertyChangedListener
 import org.fs.architecture.mvi.util.ObservableList
-import org.fs.weather.model.entity.ClimateAverage
+import org.fs.weather.model.entity.MonthlyAverage
 import org.fs.weather.view.ClimateAverageFragment
 
-class ClimateAveragePagerAdapter(fm: FragmentManager, private val dataSet: ObservableList<ClimateAverage>): FragmentPagerAdapter(fm) {
+class ClimateAveragePagerAdapter(fm: FragmentManager, private val dataSet: ObservableList<MonthlyAverage>): FragmentPagerAdapter(fm) {
 
   private val callback by lazy { DataSetChangedListener(this) }
 

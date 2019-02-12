@@ -21,7 +21,7 @@ import org.fs.architecture.mvi.common.Idle
 import org.fs.architecture.mvi.common.Intent
 import org.fs.architecture.mvi.core.AbstractViewModel
 import org.fs.weather.model.ClimateAverageModel
-import org.fs.weather.model.entity.ClimateAverage
+import org.fs.weather.model.entity.MonthlyAverage
 import org.fs.weather.model.event.LoadClimateAverageEvent
 import org.fs.weather.model.intent.LoadClimateAverageIntent
 import org.fs.weather.model.intent.NothingIntent
@@ -32,7 +32,7 @@ import javax.inject.Inject
 class ClimateAverageFragmentModel @Inject constructor(view: ClimateAverageFragmentView) :
   AbstractViewModel<ClimateAverageModel, ClimateAverageFragmentView>(view) {
 
-  override fun initState(): ClimateAverageModel = ClimateAverageModel(state = Idle, data = ClimateAverage.EMPTY)
+  override fun initState(): ClimateAverageModel = ClimateAverageModel(state = Idle, data = MonthlyAverage.EMPTY)
 
   override fun toIntent(event: Event): Intent = when (event) {
     is LoadClimateAverageEvent -> LoadClimateAverageIntent(event.climateAverage)
