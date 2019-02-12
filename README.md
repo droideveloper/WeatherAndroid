@@ -1,4 +1,4 @@
-###Desing Choice
+### Desing Choice
 
 I have picked MVI architecture for this app the reason behind this is using and scaling bussiness logic
 with MVI architecture is really easy with just Event and corresponding Intent. MVI is architecture lets you
@@ -6,7 +6,7 @@ benefit from use of Rx and other features threading and error handling with scal
 
 I used MVI because it is the newest of current architectures that pipelines stream of events and intents into your app.
 
-###Thrid Parties
+### Thrid Parties
 
 3rd party libraries I used in this project are Retrofit, Rx, Room, OkHttp, Glide and Dagger2.
 
@@ -25,7 +25,7 @@ Glide is image loading lib that is one of the best in my opinion and it also can
 Dagger2 is one of my must have libs in android app dev since it make app code clean in terms of di (Dependency Injection) practices and lets you manage your memory allocation optiomal
 and also you can get app development further if you are followin SOLID princaples with this di.
 
-###Extra to be done
+### Extra to be done
 
 Would love to put some setting to change search of new city in the app and may be flicker api that would let you find background photos of selected city to show user
 
