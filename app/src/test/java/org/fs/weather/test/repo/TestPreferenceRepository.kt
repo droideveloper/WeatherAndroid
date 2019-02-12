@@ -14,17 +14,23 @@
  * limitations under the License.
  */
 
-package org.fs.weather.common.repo
+package org.fs.weather.test.repo
 
-import io.reactivex.Observable
-import org.fs.weather.model.entity.Forecast
-import org.fs.weather.model.net.Resource
-import org.fs.weather.mock.net.EndpointProxy
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.fs.architecture.mvi.util.EMPTY
+import org.fs.weather.mock.repo.MockPreferenceRepository
+import org.junit.Test
 
-@Singleton
-class RemoteForecastRepositoryImp @Inject constructor(private val proxy: EndpointProxy): RemoteForecastRepository {
+class TestPreferenceRepository {
 
-  override fun loadForecastFor(q: String): Observable<Resource<Forecast>> = proxy.weatherFor(q)
+  private val repo by lazy { MockPreferenceRepository() }
+
+  @Test fun testSetValue() {
+    val cityName = "Hello World"
+    repo.selectedCityName = cityName
+    assert(cityName == repo.selectedCityName)
+  }
+
+  @Test fun testGetValue() {
+    assert(repo.selectedCityName == String.EMPTY)
+  }
 }

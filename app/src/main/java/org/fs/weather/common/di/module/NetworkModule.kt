@@ -26,7 +26,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.fs.weather.BuildConfig
-import org.fs.weather.net.Endpoint
+import org.fs.weather.mock.net.Endpoint
 import org.fs.weather.util.log
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

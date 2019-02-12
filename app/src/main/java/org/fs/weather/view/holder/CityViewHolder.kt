@@ -28,6 +28,8 @@ import org.fs.rx.extensions.util.clicks
 import org.fs.weather.R
 import org.fs.weather.model.entity.City
 import org.fs.weather.model.event.SelectCityEvent
+import java.text.NumberFormat
+import java.util.*
 
 class CityViewHolder(view: View): BaseCityViewHolder(view) {
 
@@ -37,12 +39,20 @@ class CityViewHolder(view: View): BaseCityViewHolder(view) {
   private val viewTextCountryName by lazy { itemView.viewTextCountryName }
   private val viewTextPopulation by lazy { itemView.viewTextPopulation }
 
+  private val context by lazy { itemView.context }
+  private val format by lazy { NumberFormat.getInstance(Locale.getDefault()) }
+
   constructor(parent: ViewGroup): this(parent.inflate(R.layout.view_city_item))
 
   override fun bind(value: City) {
     viewTextCityName.text = value.areaName?.firstOrNull()?.value
     viewTextCountryName.text = value.country?.firstOrNull()?.value
-    viewTextPopulation.text = value.population
+
+    val n = value.population?.toLongOrNull() ?: 0L
+    val f = format.format(n)
+    val text = context.getString(R.string.str_citizens, f)
+
+    viewTextPopulation.text = text
 
     disposeBag += bindSelectCityEvent(value).subscribe(BusManager.Companion::send)
   }

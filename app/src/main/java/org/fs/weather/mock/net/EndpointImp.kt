@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fs.weather.net
+package org.fs.weather.mock.net
 
 import io.reactivex.Observable
 import org.fs.weather.model.entity.City

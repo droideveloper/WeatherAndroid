@@ -23,7 +23,7 @@ sealed class C {
 
     // used for request in
     const val QUERY_KEY = "key"
-    const val QUERY_SERACH = "q"
+    const val QUERY_SEARCH = "q"
     const val QUERY_FORMAT = "format"
     // forecast api param
     const val QUERY_NUMBER_OF_DAYS = "num_of_days"

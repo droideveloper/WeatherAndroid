@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.fs.weather.common.repo
+package org.fs.weather.mock.net
 
 import io.reactivex.Observable
+import org.fs.weather.model.entity.City
 import org.fs.weather.model.entity.Forecast
-import org.fs.weather.model.net.Resource
-import org.fs.weather.mock.net.EndpointProxy
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.fs.weather.model.net.Response
+import org.fs.weather.model.net.SearchResponse
 
-@Singleton
-class RemoteForecastRepositoryImp @Inject constructor(private val proxy: EndpointProxy): RemoteForecastRepository {
+class MockEndpointSuccess: Endpoint {
 
-  override fun loadForecastFor(q: String): Observable<Resource<Forecast>> = proxy.weatherFor(q)
+  override fun weatherFor(q: String, days: Int): Observable<Response<Forecast>> = Observable.just(Response(data = Forecast.EMPTY))
+
+  override fun cityFor(q: String): Observable<Response<SearchResponse<List<City>>>> = Observable.just(Response(data = SearchResponse(result = emptyList())))
 }
