@@ -21,6 +21,7 @@ import org.fs.weather.model.entity.City
 import org.fs.weather.model.entity.Forecast
 import org.fs.weather.model.net.Response
 import org.fs.weather.model.net.SearchResponse
+import org.fs.weather.net.Endpoint
 
 class MockEndpointSuccess: Endpoint {
 

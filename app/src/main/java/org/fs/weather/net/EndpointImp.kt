@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fs.weather.mock.net
+package org.fs.weather.net
 
 import io.reactivex.Observable
 import org.fs.weather.model.entity.City
@@ -27,7 +27,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class EndpointImp @Inject constructor(private val internal: Endpoint): EndpointProxy {
+class EndpointImp @Inject constructor(private val internal: Endpoint):
+  EndpointProxy {
 
   override fun weatherFor(q: String, days: Int): Observable<Resource<Forecast>> = internal.weatherFor(q, days).applyResource()
 
