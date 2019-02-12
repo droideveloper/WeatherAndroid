@@ -42,6 +42,7 @@ import org.fs.weather.util.showError
 import org.fs.weather.view.adapter.ClimateAveragePagerAdapter
 import org.fs.weather.view.adapter.DailyForecastAdapter
 import org.fs.weather.vm.MainActivityViewModel
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), MainActivityView {
@@ -59,6 +60,8 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
   private val dividerDrawable by lazy { ResourcesCompat.getDrawable(resources, R.drawable.ic_vertical_divider, theme) }
 
   override val layoutRes: Int get() = R.layout.view_main_activity
+
+  private val calendar by lazy { Calendar.getInstance() }
 
   private var city = City.EMPTY
 
@@ -142,6 +145,7 @@ class MainActivity : AbstractActivity<ForecastModel, MainActivityViewModel>(), M
             val averages = data.climateAverages?.firstOrNull()?.month ?: emptyList()
             if (averages.isNotEmpty()) {
               averageDataSet.addAll(averages)
+              viewPager.currentItem = calendar.get(Calendar.MONTH)
             }
           }
         }
